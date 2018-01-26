@@ -1,9 +1,10 @@
 import Foundation
 import CodableExtensions
 
+/*
 let key = "name"
 
-let jsonObject = """
+let aStringWithIsConvertedToData = """
 {
     "\(key)" : "david"
 }
@@ -11,16 +12,20 @@ let jsonObject = """
 
 let dataObject = """
 {
-    "rita" : "david"
+    "name" : "rita"
 }
 """.data(using: .utf8)!
+
+let _dict = try! JSONSerialization.jsonObject(with: dataObject, options: .allowFragments)
+
+print(_dict)
 
 
 let jsonDict: NSDictionary = [
     "name" : "james"
 ]
 
-let stringDict: [AnyHashable:Any] = [
+let AnyHashableDictionary: [AnyHashable:Any] = [
     "name" : "john"
 ]
 
@@ -36,7 +41,7 @@ let stringDict: [AnyHashable:Any] = [
 
 //print(person.name!)
  
-guard let david = Person.load(any: jsonObject )  else { exit(2) }
+guard let david = Person.load(any: aStringWithIsConvertedToData )  else { exit(2) }
 
 print(david.name!)
 
@@ -52,3 +57,4 @@ guard let ritaDict = Person.load(any: dataObject )   else { exit(2) }
 
 print(ritaDict.name!)
 
+*/
