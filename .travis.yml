@@ -11,5 +11,6 @@ before_script:
 
 script:
   - swift test
+  - pod repo push
 
 
