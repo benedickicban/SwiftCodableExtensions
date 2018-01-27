@@ -2,17 +2,8 @@ language: objective-c
 xcode_project: CodableExtensions.xcodeproj
 xcode_scheme: CodableExtensions
 osx_image: xcode9.2
-cache: 
-  - cocoapods
-
-before_script:
-  - pod repo add cocoapods https://github.com/CocoaPods/Specs.git
-  - pod repo update
-  - pod install
-  - pod update
 
 script:
   - swift test
-  - pod repo push cocoapods --sources=https://github.com/CocoaPods/Specs.git
 
 
