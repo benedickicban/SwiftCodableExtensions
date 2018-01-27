@@ -1,4 +1,6 @@
-language: swift
+language: objective-c
 xcode_project: CodableExtensions.xcodeproj
 xcode_scheme: CodableExtensions
+script:
+  - swift test
 
