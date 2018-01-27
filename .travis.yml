@@ -6,7 +6,6 @@ cache:
   - cocoapods
 
 before_script:
-  - pod init
   - pod install
   - pod update
 
