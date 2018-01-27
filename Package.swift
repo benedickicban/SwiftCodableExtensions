@@ -21,11 +21,6 @@ let package = Package(
         .target(
             name: "CodableExtensions",
             dependencies: []),
-        .target(
-            name: "CodableMain",
-            dependencies: [
-                .target( name: "CodableExtensions" )
-            ]),
         .testTarget(
             name: "CodableExtensionsTests",
             dependencies: ["CodableExtensions"]),

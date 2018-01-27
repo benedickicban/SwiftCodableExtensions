@@ -1,16 +1,35 @@
 # CodableExtensions
 
-CodableExtension contains helper methods on a Decodable.
+CodableExtension contains helper methods for Decodable objects.
 
-The Codable documention from Apple is already very good and the Codable library from the Standard Swift Library in my opinion is already exceptional.
+The Codable documention from Apple is already very good and the Codable library from the Standard Swift Library in my opinion is exceptional.
 
 Everything can always be made easier, therefore I have made these extensions which allow for me to write even less code than what we do already.
 
+# Contents
+
+* [Introduction](#introduction)
+* [Aim](#aim)
+  * [From](#aim.from)
+  * [To](#aim.to)
+* [Requirements](#requirements)
+* [Installation](#installation)
+  * [CocoaPods](#cocoapods)
+  * [Carthage](#carthage)
+  * [Swift Package Manager](#swift-pm)
+* [Usage](#usage)
+  * [Decode using Foundation Data object](#usage-1)
+  * [Decode using a `Foundation` `NSDictionary`](#usage-2)
+  * [Decode using a `[AnyHashable:Any]` Dictionary](#usage-3)
+  * [Decode using a JSON String](#usage-4)
+
+<a name="introduction"></a>
+
 # Introduction
 
-All of the examples below are based upon a `Person` `class`.
+The examples below are based upon a `Person` `object`.
 
-The `Person` `class` has one property and this is called `name` and it is of type `String?`.
+The `Person` `object` has one member property and this is labelled `name` with a type of `String?`.
 
 Very simple huh!
 
@@ -32,111 +51,163 @@ public class Person: Codable {
 
 ```
 
-As you can see my `Person` `class` implements the swift 4 Codable protocol.
+As you can see my `Person` `object` implements the swift 4 `Codable` `protocol`.
 
-# Aim
+<a name="aim"></a>
 
->### The aim of this library is to reduce following code:
+# Aim: to reduce the boiler plate code written
 
+
+<a name="aim.from"></a>
+
+## From:
 ```swift
-
 do {
 
-    
     let data = try JSONSerialization.data(withJSONObject: withDictionary)
     return try JSONDecoder().decode(self, from: data)
 
 } catch {
     return nil
-} 
-
+}
 ```
 
->### To the following code:
+<a name="aim.to"></a>
 
+>## To
 ```swift
-
 guard let person = Person.load(withDictionary: dictionary ) else {
     return nil
 }
+```
 
+<a name="requirements"></a>
+
+# Requirements
+
+* Xcode 9.2
+* Minimum iOS Deploment Target 9.0
+* Swift 4.0
+
+<a name="installation"></a>
+
+# Installation
+
+`CodableExtensions` doesn't contain any external dependencies.
+
+These are currently the supported options:
+
+<a name="cocoapods"></a>
+
+# [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
+
+Not yet supported but coming very soon
+
+<a name="carthage"></a>
+
+# [Carthage](https://github.com/Carthage/Carthage)
+
+Not yet supported but coming very soon
+
+<a name="swift-pm"/>
+
+# [Swift Package Manager](https://github.com/apple/swift-package-manager) 
+
+**Tested with `swift build --version`: `Swift 4.0.0-dev (swiftpm-13126)`**
+
+Create a `Package.swift` file.
+
+```swift
+
+// swift-tools-version:4.0
+
+import PackageDescription
+
+let package = Package(
+    name: "PACKAGE_NAME",
+    dependencies: [
+        .package(url: "https://github.com/davidthorn/SwiftCodableExtensions.git", from: "0.1.0")
+    ],
+    targets: [
+        .target(name: "PACKAGE_NAME", dependencies: [
+        "CodableExtensions"
+        ])
+    ]
+    )
 
 ```
 
-# And here it is:
+```bash
 
-# Convert JSON String to Person Object
+$ swift build
 
-To me the most basic way for someone to want to do this is with taking a simple json string and saying hey give me an object from that in one line of code.
+```
+
+<a name="usage"></a>
+
+# Usage
+
+To me the most basic way for someone to want to do this is with taking a simple `JSON String`, `NSDictionary`, `HashableDictionary` or `Data` object and saying hey give me a decoded object from that in one line of code.
 
 Well with a few methods it is possible.
 
+<a name="usage-1"></a>
+
+# Decode using Foundation Data object
+
 ```swift
+let jsonData: Data =  .... // Load the json Data from a server/api etc
 
-/// Unit Test
-
-func testDecodingWithJSONString() {
-
-    let jsonString = """
-    {
-        "name" : "david"
-    }
-    """
-
-    let person = Person.decode(withJsonString: jsonString)
-
-    XCTAssertNotNil(person , "the person must not be nil")
-
+guard let person: Person = Person.decode(withJSONData: jsonData) else {
+    return nil
 }
 ```
-```bash
-Test Suite 'All tests' started at 2018-01-26 00:02:45.823
-Test Suite 'debug.xctest' started at 2018-01-26 00:02:45.825
-Test Suite 'CodableExtensionsTests' started at 2018-01-26 00:02:45.825
-Test Case 'CodableExtensionsTests.Test Decoding Decodable using JSON String' started at 2018-01-26 00:02:45.825
-Test Case 'CodableExtensionsTests.Test Decoding Decodable using JSON String' passed (0.003 seconds)
-Test Suite 'CodableExtensionsTests' passed at 2018-01-26 00:02:45.828
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-Test Suite 'debug.xctest' passed at 2018-01-26 00:02:45.828
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-Test Suite 'All tests' passed at 2018-01-26 00:02:45.828
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-```
 
-# Decoding with a NSDictionary
+<a name="usage-2"></a>
+
+# Decode using a Foundation NSDictionary
 
 ```swift
 
-/// Unit Test
+let dictionary: NSDictionary = [
+    "name"  : "david"
+]
 
-func testDecodingNSDictionary() {
-
-    let dict: NSDictionary = [
-        "name" : "david"
-    ]
-
-    let person = Person.decode(withDictionary: dict)
-
-    XCTAssertNotNil(person , "the person must not be nil")
-
+guard let person: Person = Person.decode(withDictionary: dictionary ) else {
+    return nil
 }
 
 ```
-```bash
-Test Suite 'All tests' started at 2018-01-26 00:08:21.907
-Test Suite 'debug.xctest' started at 2018-01-26 00:08:21.908
-Test Suite 'CodableExtensionsTests' started at 2018-01-26 00:08:21.908
-Test Case 'CodableExtensionsTests.Test Decoding Decodable using NSDictionary' started at 2018-01-26 00:08:21.909
-Test Case 'CodableExtensionsTests.Test Decoding Decodable using NSDictionary' passed (0.003 seconds)
-Test Suite 'CodableExtensionsTests' passed at 2018-01-26 00:08:21.912
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-Test Suite 'debug.xctest' passed at 2018-01-26 00:08:21.912
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-Test Suite 'All tests' passed at 2018-01-26 00:08:21.912
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+
+<a name="usage-3"></a>
+
+# Decode using a `[AnyHashable:Any]` Dictionary
+
+```swift
+
+let dictionary: [AnyHashable:Any] = [
+    "name"  : "david"
+]
+
+guard let person: Person = Person.decode(withHashableDictionary: dictionary ) else {
+    return nil
+}
 
 ```
 
+<a name="usage-4"></a>
 
-# Decodable using JSON String
+# Decode using a JSON String
 
+```swift
+let jsonString = """
+{
+    "name" : "david"
+}
+        """
+
+guard let person = Person.decode(withJsonString: jsonString) else {
+    return nil
+}
+
+```

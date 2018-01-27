@@ -1,3 +1,5 @@
+import Foundation
+
 public class Person: Codable {
 
     public var name: String?

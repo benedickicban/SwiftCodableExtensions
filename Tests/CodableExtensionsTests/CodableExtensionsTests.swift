@@ -6,6 +6,7 @@ import Foundation
 class CodableExtensionsTests: XCTestCase {
     
 
+    /// Test that a Decodable object can be loaded with a NSDictionary
     func testDecodingNSDictionary() {
 
         let dict: NSDictionary = [
@@ -18,7 +19,7 @@ class CodableExtensionsTests: XCTestCase {
 
     }
 
-
+    /// Test that a Decodable object can be loaded with a AnyHashable Dictionary
     func testAnyHashableConvertedToDecodable() {
 
         let AnyHashableDictionary: [AnyHashable:Any] = [
@@ -31,7 +32,7 @@ class CodableExtensionsTests: XCTestCase {
 
     }
 
-
+    /// Test that a Decodable object can be loaded with a JSON String
     func testDecodingWithJSONString() {
 
        let jsonString = """
@@ -47,7 +48,7 @@ class CodableExtensionsTests: XCTestCase {
     }
 
     
-
+    /// Test that a Decodable object can be loaded with a JSON Data
     func testdecodeWithJsonData() {
 
         let jsonData = """
@@ -64,9 +65,9 @@ class CodableExtensionsTests: XCTestCase {
 
 
     static var allTests = [
-      //  ("Test Decoding Decodable using JSON String" , testDecodingWithJSONString),
+        ("Test Decoding Decodable using JSON String" , testDecodingWithJSONString),
         ("Test Decoding Decodable using NSDictionary" , testDecodingNSDictionary),
-      //  ("Test Decoding Decodable using AnyHashable Dictionary" , testAnyHashableConvertedToDecodable),
-      //  ("Test Decoding using JSON Data" , testdecodeWithJsonData)
+        ("Test Decoding Decodable using AnyHashable Dictionary" , testAnyHashableConvertedToDecodable),
+        ("Test Decoding using JSON Data" , testdecodeWithJsonData)
     ]
 }
