@@ -1,8 +1,10 @@
 import Foundation
 
-public class Person: Codable {
+public class David: Codable {
 
     public var name: String?
+
+    public var age: Int?
 
     public init()  {
 
@@ -12,6 +14,7 @@ public class Person: Codable {
 
         let values = try decoder.container(keyedBy: PersonKeys.self)
         name = try values.decode(String.self, forKey: .name)
+        age = try values.decode(Int.self, forKey: .age)
 
     }
 
@@ -19,12 +22,8 @@ public class Person: Codable {
 
         var container = encoder.container(keyedBy: PersonKeys.self)
         try container.encode(name , forKey: .name)
+        try container.encode(age , forKey: .age)
 
     }
 
-}
-
-public enum PersonKeys: String , CodingKey {
-    case name
-    case age
 }
