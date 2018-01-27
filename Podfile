@@ -1,7 +1,6 @@
 
 target 'CodableExtensions' do
+    use_frameworks!
     project 'CodableExtensions'
-
-    pod 'RxSwift'
 
 end
