@@ -1,5 +1,7 @@
 
 target 'CodableExtensions' do
-    project 'CodableExtensions.xcodeproj'
+    project 'CodableExtensions'
+
+    pod 'RxSwift'
 
 end
