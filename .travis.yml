@@ -1,6 +1,7 @@
 language: objective-c
 xcode_project: CodableExtensions.xcodeproj
 xcode_scheme: CodableExtensions
+osx_image: xcode9.2
 script:
   - swift test
 
