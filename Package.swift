@@ -3,6 +3,8 @@
 
 import PackageDescription
 
+// test automatic deployment
+
 let package = Package(
     name: "CodableExtensions",
     products: [
