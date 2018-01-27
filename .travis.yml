@@ -1,3 +1,4 @@
 language: swift
-test:
-  - swift build
+xcode_project: CodableExtensions.xcodeproj
+xcode_scheme: CodableExtensions
+
