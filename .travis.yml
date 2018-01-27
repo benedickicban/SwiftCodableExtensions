@@ -6,11 +6,13 @@ cache:
   - cocoapods
 
 before_script:
+  - pod repo add cocoapods https://github.com/CocoaPods/Specs.git
+  - pod repo update
   - pod install
   - pod update
 
 script:
   - swift test
-  - pod repo push
+  - pod repo push cocoapods --sources=https://github.com/CocoaPods/Specs.git
 
 
